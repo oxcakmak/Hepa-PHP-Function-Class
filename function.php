@@ -174,8 +174,8 @@ class hepa {
 	}
 	/*
 	* Description: Get client IP Addresss
-	* Usage: $hepa->function(string);
-	* Example: $hepa->function(string);
+	* Usage: $hepa->getClientIpaddr();
+	* Example: $hepa->getClientIpaddr();
 	*/
 	public function getClientIpaddr(){
 		if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
@@ -206,5 +206,11 @@ class hepa {
 		for($i = 0; $i < $length; $i++){ $key .= $charset[(mt_rand(0, strlen($charset) - 1))]; }
 		return $key;
 	}
+	/*
+	* Description: Hash MD5 Sha1 MD5 Any string custom
+	* Usage: $hepa->hsct(string);
+	* Example: $hepa->hsct("1234");
+	*/
+	public function hsct($string){ return md5(hash("sha1", md5($string))); }
 }
 ?>
