@@ -190,5 +190,21 @@ class hepa {
 		}else{ $ip = $remote; }
 		return $ip;
     }
+	/*
+	* Description: Random String Generator
+	* Usage: $hepa->gntcts(minLength[Number], maxLength[Number], useLower[true/false], useUpper[true/false], useNumbers[true/false], useSpecial[true/false]);
+	* Example: $hepa->gntcts(0, 12, true, false, true, false);
+	*/
+	public function gntcts($minLength = 20, $maxLength = 20, $useLower = true, $useUpper = true, $useNumbers = true, $useSpecial = false) {
+		$charset = '';
+		if($useLower) { $charset .= "abcdefghijklmnopqrstuvwxyz"; }
+		if($useUpper){ $charset .= "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; }
+		if($useNumbers){ $charset .= "123456789"; }
+		if($useSpecial){ $charset .= "~@#$%^*()_+-={}|]["; }
+		if($minLength > $maxLength){ $length = mt_rand($maxLength, $minLength); }else{ $length = mt_rand($minLength, $maxLength); }
+		$key = '';
+		for($i = 0; $i < $length; $i++){ $key .= $charset[(mt_rand(0, strlen($charset) - 1))]; }
+		return $key;
+	}
 }
 ?>
