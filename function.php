@@ -6,6 +6,7 @@
 * Username: oxcakmak
 * Email: info@oxcakmak.com
 * Website: https://oxcakmak.com/
+* Version: 1.5
 */
 /*
 * # ABBREVIATION #
