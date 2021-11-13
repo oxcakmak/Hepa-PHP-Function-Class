@@ -207,10 +207,24 @@ class hepa {
 		return $key;
 	}
 	/*
+	* Description: Slugify string
+	* Usage: $hepa->slugs(string);
+	* Example: $hepa->slugs("Lorem Ipsum State");
+	*/
+	public function slugs($string){
+		$preg = array('ş','Ş','ı','I','İ','ğ','Ğ','ü','Ü','ö','Ö','Ç','ç','(',')','/',':',',', '+', '#', '.', '_');
+		$match = array('s','s','i','i','i','g','g','u','u','o','o','c','c','','','-','-','', '', '', '', '');
+		$perma = strtolower(str_replace($preg, $match, $string));
+		$perma = preg_replace("@[^A-Za-z0-9\-_\.\+]@i", ' ', $perma);
+		$perma = trim(preg_replace('/\s+/', ' ', $perma));
+		$perma = str_replace(' ', '-', $perma);
+		return $perma;
+	}
+	/*
 	* Description: Hash MD5 Sha1 MD5 Any string custom
 	* Usage: $hepa->hsct(string);
 	* Example: $hepa->hsct("1234");
 	*/
-	public function hsct($string){ return md5(hash("sha1", md5($string))); }
+	public function hsct($string){ return hash("md5", hash("sha256", hash("sha1", hash("crc32", $string)))); }
 }
 ?>
