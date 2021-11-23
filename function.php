@@ -6,7 +6,7 @@
 * Username: oxcakmak
 * Email: info@oxcakmak.com
 * Website: https://oxcakmak.com/
-* Version: 1.5
+* Version: 1.6
 */
 /*
 * # ABBREVIATION #
@@ -41,6 +41,10 @@
 * ctn: Contain
 * cts: Contains
 * addr: Address
+* wrt: Write
+* ctt: Content
+* re: re-
+* rwc: Rewrite Content
 * 
 * 
 * 
@@ -49,10 +53,10 @@
 
 
 /*
-	* Description: String
-	* Usage: $hepa->function(string);
-	* Example: $hepa->function(string);
-	*/
+* Description: String
+* Usage: $hepa->function(string);
+* Example: $hepa->function(string);
+*/
 class hepa {
 	
 	/*
@@ -227,5 +231,11 @@ class hepa {
 	* Example: $hepa->hsct("1234");
 	*/
 	public function hsct($string){ return hash("md5", hash("sha256", hash("sha1", hash("crc32", $string)))); }
+	/*
+	* Description: Rewrite content
+	* Usage: $hepa->rwc(string);
+	* Example: $hepa->rwc("1234");
+	*/
+	public function rwc($string){ echo $string; }
 }
 ?>
