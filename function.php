@@ -278,7 +278,7 @@ class hepa {
 	public function ld(){ return date("d.m.Y"); }
 	/*
 	* Description: Latest Date Time
-	* Using: $hepa->ldtm("admin");
+	* Using: $hepa->ldtm();
 	* Output: 12.02.2020-13:50
 	*/
 	public function ldtm(){ return date("d.m.Y-H:i"); }
