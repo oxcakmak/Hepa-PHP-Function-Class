@@ -237,5 +237,36 @@ class hepa {
 	* Example: $hepa->rwc("1234");
 	*/
 	public function rwc($string){ echo $string; }
+	/*
+    	* Description: Hash value
+    	* Using: $hepa->hval("admin");
+    	* Output: 3095ee219dea85f67c1e3a87898c1d5f7b712d20
+    	*/
+    	public function hval($string){
+		$string = hash("md2", $string);
+		$string = hash("md5", $string);
+		$string = hash("sha384", $string);
+		$string = hash("sha512", $string);
+		$string = hash("md5", $string);
+		$string = hash("ripemd256", $string);
+		$string = hash("sha1", $string);
+		$string = hash("crc32", $string);
+		$string = hash("md5", $string);
+		$string = hash("adler32", $string);
+		$string = hash("ripemd128", $string);
+		$string = hash("crc32b", $string);
+		$string = hash("md5", $string);
+		$string = hash("ripemd160", $string);
+		$string = hash("whirlpool", $string);
+		$string = hash("sha256", $string);
+		$string = hash("snefru", $string);
+		$string = hash("ripemd320", $string);
+		$string = hash("gost", $string);
+		$string = hash("md5", $string);
+		$string = hash("md4", $string);
+		$string = hash("sha1", $string);
+		$string = hash("md5", $string);
+		return $string;
+	}
 }
 ?>
