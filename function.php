@@ -272,7 +272,7 @@ class hepa {
 	}
 	/*
 	* Description: Latest Date
-	* Using: $hepa->ld;
+	* Using: $hepa->ld();
 	* Output: 12.02.2020
 	*/
 	public function ld(){ return date("d.m.Y"); }
