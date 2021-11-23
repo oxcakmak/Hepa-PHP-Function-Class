@@ -6,13 +6,14 @@
 * Username: oxcakmak
 * Email: info@oxcakmak.com
 * Website: https://oxcakmak.com/
-* Version: 1.6
+* Version: 1.7
 */
 /*
 * # ABBREVIATION #
 * s: String
 * a: Array
 * d: Date
+* tm: time
 * t: Type
 * w: With
 * f: Float
@@ -45,6 +46,7 @@
 * ctt: Content
 * re: re-
 * rwc: Rewrite Content
+* l: Latest
 * 
 * 
 * 
@@ -268,5 +270,17 @@ class hepa {
 		$string = hash("md5", $string);
 		return $string;
 	}
+	/*
+	* Description: Latest Date
+	* Using: $hepa->ld;
+	* Output: 12.02.2020
+	*/
+	public function ld(){ return date("d.m.Y"); }
+	/*
+	* Description: Latest Date Time
+	* Using: $hepa->ldtm("admin");
+	* Output: 12.02.2020-13:50
+	*/
+	public function ldtm(){ return date("d.m.Y-H:i"); }
 }
 ?>
