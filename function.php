@@ -6,7 +6,7 @@
 * Username: oxcakmak
 * Email: info@oxcakmak.com
 * Website: https://oxcakmak.com/
-* Version: 1.7
+* Version: 1.8
 */
 /*
 * # ABBREVIATION #
@@ -47,7 +47,10 @@
 * re: re-
 * rwc: Rewrite Content
 * l: Latest
-* 
+* eq: Equal
+* neq: Not Equal
+* bigval: Big Value
+* smaval: Small Value
 * 
 * 
 
@@ -282,5 +285,69 @@ class hepa {
 	* Output: 12.02.2020-13:50
 	*/
 	public function ldtm(){ return date("d.m.Y-H:i"); }
+	/*
+    * Description: Equal
+    * Using: $hepa->eq("pass", "pass");
+    * Output: true_password
+    */
+	public function eq($varOne, $varTwo){
+		if($varOne==$varTwo){ return true; }else{ return false; }
+	}
+	/*
+    * Description: Not Equal
+    * Using: $hepa->neq("pass", "pass123");
+    * Output: false_password
+    */
+	public function neq($varOne, $varTwo){
+		if($varOne!=$varTwo){ return true; }else{ return false; }
+	}
+	/*
+    * Description: Equal Rewrite Content
+    * Using: $hepa->eqrwc("pass", "pass", "true_password", "false_password");
+    * Output: true_password
+    */
+	public function eqrwc($varOne, $varTwo, $eqTrue, $eqFalse){
+		if($varOne==$varTwo){ $this->rwc($eqTrue); }else{ if($eqFalse){ $this->rwc($eqFalse); } }
+	}
+	/*
+    * Description: Not Equal Rewrite Content
+    * Using: $hepa->neqrwc("pass", "pass123", "false_password", "true_password");
+    * Output: false_password
+    */
+	public function neqrwc($varOne, $varTwo, $eqFalse, $eqTrue){
+		if($varOne!=$varTwo){ $this->rwc($eqFalse); }else{ if($eqTrue){ $this->rwc($eqTrue); } }
+	}
+	/*
+    * Description: Big Value
+    * Using: $hepa->bigval("1", "2");
+    * Output: true_password
+    */
+	public function bigval($varOne, $varTwo){
+		if($varOne>$varTwo){ return true; }else{ return false; }
+	}
+	/*
+    * Description: Small Value
+    * Using: $hepa->smaval("1", "2", "false_password", "true_password");
+    * Output: false_password
+    */
+	public function smaval($varOne, $varTwo){
+		if($varOne<$varTwo){ return true; }else{ return false; }
+	}
+	/*
+    * Description: Big Value Rewrite Content
+    * Using: $hepa->eqrwc("pass", "pass", "true_password", "false_password");
+    * Output: true_password
+    */
+	public function bigvalrwc($varOne, $varTwo, $eqTrue, $eqFalse){
+		if($varOne>$varTwo){ $this->rwc($eqTrue); }else{ if($eqFalse){ $this->rwc($eqTrue); } }
+	}
+	/*
+    * Description: Small Value Rewrite Content
+    * Using: $hepa->smavalrwc("pass", "pass123", "false_password", "true_password");
+    * Output: false_password
+    */
+	public function smavalrwc($varOne, $varTwo, $eqFalse, $eqTrue){
+		if($varOne<$varTwo){ $this->rwc($eqFalse); }else{ if($eqTrue){ $this->rwc($eqTrue); } }
+	}
 }
 ?>
