@@ -51,7 +51,7 @@
 * neq: Not Equal
 * bigval: Big Value
 * smaval: Small Value
-* 
+* bw: Between
 * 
 
 */
@@ -348,6 +348,15 @@ class hepa {
     */
 	public function smavalrwc($varOne, $varTwo, $eqFalse, $eqTrue){
 		if($varOne<$varTwo){ $this->rwc($eqFalse); }else{ if($eqTrue){ $this->rwc($eqTrue); } }
+	}
+	/*
+    * Description: Get Between Custom String
+    * Using: $hepa->getsbw("pass, admin, test, +root, post", "+root", ",");
+    * Output: root
+    */
+	public function getsbw($str,$from,$to){
+		$sub = substr($str, strpos($str,$from)+strlen($from),strlen($str));
+		return substr($sub,0,strpos($sub,$to));
 	}
 }
 ?>
