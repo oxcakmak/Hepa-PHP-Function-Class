@@ -6,7 +6,7 @@
 * Username: oxcakmak
 * Email: info@oxcakmak.com
 * Website: https://oxcakmak.com/
-* Version: 1.9
+* Version: 2.0
 */
 /*
 * # ABBREVIATION #
@@ -52,7 +52,7 @@
 * bigval: Big Value
 * smaval: Small Value
 * bw: Between
-* 
+* diff: diff
 
 */
 
@@ -357,6 +357,38 @@ class hepa {
 	public function getsbw($str,$from,$to){
 		$sub = substr($str, strpos($str,$from)+strlen($from),strlen($str));
 		return substr($sub,0,strpos($sub,$to));
+	}
+	/*
+    * Description: Get Between Date Diff
+    * Using: $hepa->cddiff($latest, 24, "d");
+    * Output: 123
+    */
+	public function cddiff($latest,$total, $return){
+		$date = new DateTime(date("Y-m-d H:i:s", $latest));
+		$diff = $date->diff(new DateTime(date("Y-m-d H:i:s", $this->ldtm())));
+		switch($return){
+			default:
+			return $diff->h;
+			break;
+			case "y":
+			return $diff->y;
+			break;
+			case "m":
+			return $diff->m;
+			break;
+			case "d":
+			return $diff->d;
+			break;
+			case "h":
+			return $diff->h;
+			break;
+			case "i":
+			return $diff->i;
+			break;
+			case "s":
+			return $diff->s;
+			break;																		
+		}
 	}
 }
 ?>
