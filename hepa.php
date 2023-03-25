@@ -51,8 +51,8 @@
 * neq: Not Equal
 * bigval: Big Value
 * smaval: Small Value
-* bw: Between
-* diff: diff
+* id: Id
+* 
 
 */
 
@@ -106,7 +106,7 @@ class hepa {
 	* Usage: $hepa->sXssclr($string);
 	* Example:  $hepa->sXssclr("<script>alert('test');</script>");
 	*/
-	public function sXssclr($str){ return htmlspecialchars($data, ENT_QUOTES, 'UTF-8'); }
+	public function sXssclr($str){ return htmlspecialchars($str, ENT_QUOTES, 'UTF-8'); }
 	
 	/*
 	* Description: Random color hex code generation way 1
@@ -217,6 +217,19 @@ class hepa {
 		return $key;
 	}
 	/*
+	* Description: Random String Generator
+	* Usage: $hepa->gntrds(length);
+	* Example: $hepa->gntrds(12);
+	*/
+	function gntrds($length) {
+		$key = '';
+		$keys = array_merge(range(0, 9), range('a', 'z'), range('A', 'Z'));
+		for ($i = 0; $i < $length; $i++) {
+			$key .= $keys[array_rand($keys)];
+		}
+		return $key;
+	}
+	/*
 	* Description: Slugify string
 	* Usage: $hepa->slugs(string);
 	* Example: $hepa->slugs("Lorem Ipsum State");
@@ -243,22 +256,26 @@ class hepa {
 	*/
 	public function rwc($string){ echo $string; }
 	/*
-    	* Description: Hash value
-    	* Using: $hepa->hval("admin");
-    	* Output: 3095ee219dea85f67c1e3a87898c1d5f7b712d20
-    	*/
-    	public function hval($string){
+	* Description: Hash value
+	* Using: $hepa->hval("admin");
+	* Output: 3095ee219dea85f67c1e3a87898c1d5f7b712d20
+	*/
+	public function hval($string){
 		$string = hash("md2", $string);
+		$string = hash("md4", $string);
 		$string = hash("md5", $string);
 		$string = hash("sha384", $string);
+		$string = hash("md5", $string);
 		$string = hash("sha512", $string);
 		$string = hash("md5", $string);
 		$string = hash("ripemd256", $string);
-		$string = hash("sha1", $string);
-		$string = hash("crc32", $string);
+		$string = hash("md2", $string);
+		$string = hash("md4", $string);
 		$string = hash("md5", $string);
 		$string = hash("adler32", $string);
+		$string = hash("md5", $string);
 		$string = hash("ripemd128", $string);
+		$string = hash("md5", $string);
 		$string = hash("crc32b", $string);
 		$string = hash("md5", $string);
 		$string = hash("ripemd160", $string);
@@ -266,9 +283,12 @@ class hepa {
 		$string = hash("sha256", $string);
 		$string = hash("snefru", $string);
 		$string = hash("ripemd320", $string);
+		$string = hash("sha1", $string);
+		$string = hash("crc32", $string);
 		$string = hash("gost", $string);
-		$string = hash("md5", $string);
+		$string = hash("md2", $string);
 		$string = hash("md4", $string);
+		$string = hash("md5", $string);
 		$string = hash("sha1", $string);
 		$string = hash("md5", $string);
 		return $string;
@@ -350,45 +370,36 @@ class hepa {
 		if($varOne<$varTwo){ $this->rwc($eqFalse); }else{ if($eqTrue){ $this->rwc($eqTrue); } }
 	}
 	/*
-    * Description: Get Between Custom String
-    * Using: $hepa->getsbw("pass, admin, test, +root, post", "+root", ",");
-    * Output: root
+    * Description: Hash Custom String Id
+    * Using: $hepa->hctsid("pass");
+    * Output: 1005748453476574
     */
-	public function getsbw($str,$from,$to){
-		$sub = substr($str, strpos($str,$from)+strlen($from),strlen($str));
-		return substr($sub,0,strpos($sub,$to));
+	function hctsid($str) {
+		$stepTwo = hexdec(hash("crc32", $str));
+		$stepThree = hexdec(hash("crc32b", $str));
+		$stepFour = hexdec(hash("adler32", $str));
+		$stepFive = time();
+		$stepSix = mt_rand();
+		$stepSeven = md5($str);
+		$hid = preg_replace("/[a-zA-Z]/", "", ($stepTwo.$stepThree.$stepFour.$stepFive.$stepSix.$stepSeven));
+		$hid = preg_replace("/(\d)\1+/", "$1", $hid);
+		$hid = str_replace(['00', '11', '22', '33', '44', '55', '66', '77', '88', '99'], '', $hid);
+		$hid = substr("1".$hid, 0, 20);
+		return $hid;
 	}
 	/*
-    * Description: Get Between Date Diff
-    * Using: $hepa->cddiff($latest, 24, "d");
-    * Output: 123
+    * Description: Custom Json String
+    * Using: $hepa->hctsid("pass");
+    * Output: {"title":"Test","content":"Test message!", "type":"error"}
     */
-	public function cddiff($latest,$total, $return){
-		$date = new DateTime(date("Y-m-d H:i:s", $latest));
-		$diff = $date->diff(new DateTime(date("Y-m-d H:i:s", $this->ldtm())));
-		switch($return){
-			default:
-			return $diff->h;
-			break;
-			case "y":
-			return $diff->y;
-			break;
-			case "m":
-			return $diff->m;
-			break;
-			case "d":
-			return $diff->d;
-			break;
-			case "h":
-			return $diff->h;
-			break;
-			case "i":
-			return $diff->i;
-			break;
-			case "s":
-			return $diff->s;
-			break;																		
-		}
+	function ctJsons($title, $content, $type, $location = NULL, $interval = NULL){
+		header("Content-Type: application/json", true);
+		$json['title'] = $title;
+		$json['content'] = $content;
+		$json['type'] = $type;
+		(($location)?$json['location'] = $location:"");
+		(($interval)?$json['interval'] = $interval*1000:"");
+		echo json_encode($json, JSON_UNESCAPED_UNICODE);
 	}
 }
 ?>
