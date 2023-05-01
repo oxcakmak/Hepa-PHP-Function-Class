@@ -6,54 +6,7 @@
 * Username: oxcakmak
 * Email: info@oxcakmak.com
 * Website: https://oxcakmak.com/
-* Version: 2.0
-*/
-/*
-* # ABBREVIATION #
-* s: String
-* a: Array
-* d: Date
-* tm: time
-* t: Type
-* w: With
-* f: Float
-* fv: Float Value
-* dt: Data Type
-* db: Database
-* val: Value
-* cv: Convert
-* cc: Calculate
-* chk: Check
-* clr: Clear
-* del: Delete
-* upd: Update
-* ct: Custom
-* rd: Random
-* w: Way
-* h: Hash
-* cl: Color
-* num: Number
-* crt: Create
-* gnt: Generate
-* shr: Short
-* fl: File
-* sz: Size
-* cnt: Count
-* ctn: Contain
-* cts: Contains
-* addr: Address
-* wrt: Write
-* ctt: Content
-* re: re-
-* rwc: Rewrite Content
-* l: Latest
-* eq: Equal
-* neq: Not Equal
-* bigval: Big Value
-* smaval: Small Value
-* id: Id
-* 
-
+* Version: 2.1
 */
 
 
@@ -66,10 +19,10 @@ class hepa {
 	
 	/*
 	* Description: Checks if a string starts with the specified target
-	* Usage: $hepa->chkctStart($string, $target);
-	* Example:  $hepa->chkctStart("abcde", "abc");
+	* Usage: $hepa->checkStartString($string, $target);
+	* Example:  $hepa->checkStartString("abcde", "abc");
 	*/
-	public function chkctStart($str, $target, int $position = null){
+	public function checkStartString($str, $target, int $position = null){
 		$length = strlen($str);
 		$position = null === $position ? 0 : +$position;
 		if ($position < 0) {
@@ -79,10 +32,10 @@ class hepa {
 	}
 	/*
 	* Description: Checks if a string ends with the specified target
-	* Usage: $hepa->chkctEnd($string, $target);
-	* Example:  $hepa->chkctEnd("abcde", "abc");
+	* Usage: $hepa->checkEndString($string, $target);
+	* Example:  $hepa->checkEndString("abcde", "abc");
 	*/
-	public function chkctEnd($str, $target, int $position = null){
+	public function checkEndString($str, $target, int $position = null){
 		$length = strlen($str);
 		$position = null === $position ? $length : +$position;
 		if ($position < 0) { $position = 0; } elseif ($position > $length) { $position = $length; }
@@ -91,42 +44,42 @@ class hepa {
 	}
 	/*
 	* Description: Converts a string to UTF-8 encoding type accordingly.
-	* Usage: $hepa->cvs2Utf8($string);
-	* Example:  $hepa->cvs2Utf8("abcde");
+	* Usage: $hepa->string2Utf8($string);
+	* Example:  $hepa->string2Utf8("abcde");
 	*/
-	public function cvs2Utf8($str){ return iconv(mb_detect_encoding($str, mb_detect_order(), true), "UTF-8", $str); }
+	public function string2Utf8($str){ return iconv(mb_detect_encoding($str, mb_detect_order(), true), "UTF-8", $str); }
 	/*
 	* Description: Clears illegal characters in a string
-	* Usage: $hepa->sclr($string);
-	* Example:  $hepa->sclr("abcde");
+	* Usage: $hepa->clearString($string);
+	* Example:  $hepa->clearString("abcde");
 	*/
-	public function sclr($str){ return htmlspecialchars(strip_tags(stripslashes(trim($str))), ENT_QUOTES, 'UTF-8'); }
+	public function clearString($str){ return htmlspecialchars(strip_tags(stripslashes(trim($str))), ENT_QUOTES, 'UTF-8'); }
 	/*
 	* Description: Cleans up characters in a string that could lead to an invalid xss vulnerability
-	* Usage: $hepa->sXssclr($string);
-	* Example:  $hepa->sXssclr("<script>alert('test');</script>");
+	* Usage: $hepa->clearXss($string);
+	* Example:  $hepa->clearXss("<script>alert('test');</script>");
 	*/
-	public function sXssclr($str){ return htmlspecialchars($str, ENT_QUOTES, 'UTF-8'); }
+	public function clearXss($str){ return htmlspecialchars($str, ENT_QUOTES, 'UTF-8'); }
 	
 	/*
 	* Description: Random color hex code generation way 1
-	* Usage: $hepa->rdwHexcl1();
-	* Example:  $hepa->rdwHexcl1();
+	* Usage: $hepa->generateHexWayOne();
+	* Example:  $hepa->generateHexWayOne();
 	*/
-	public function rdwHexcl1(){ return str_pad(dechex(rand(0x000000, 0xFFFFFF)), 6, 0, STR_PAD_LEFT); }
+	public function generateHexWayOne(){ return str_pad(dechex(rand(0x000000, 0xFFFFFF)), 6, 0, STR_PAD_LEFT); }
 	/*
 	* Description: Random color hex code generation way 2
-	* Usage: $hepa->rdwHexcl2();
-	* Example: $hepa->rdwHexcl2();
+	* Usage: $hepa->generateHexWayTwo();
+	* Example: $hepa->generateHexWayTwo();
 	*/
-	public function rdwHexcl2(){ return sprintf('%06X', mt_rand(0, 0xFFFFFF)); }
+	public function generateHexWayTwo(){ return sprintf('%06X', mt_rand(0, 0xFFFFFF)); }
 	/*
 	* Description: Generate a random floating digit number.
-	* Usage: $hepa->genRandNum(lower, upper, floating);
-	* Example: $hepa->function(0, 100, true); 
+	* Usage: $hepa->generateRandomFloatNumber(lower, upper, floating);
+	* Example: $hepa->generateRandomFloatNumber(0, 100, true); 
 	* ! You can specify true or false if you wish. !
 	*/
-	public function gntrndnumwf($lower = null, $upper = null, $floating = null){
+	public function generateRandomFloatNumber($lower = null, $upper = null, $floating = null){
 		if (null === $floating) {
 			if (is_bool($upper)) {
 				$floating = $upper;
@@ -157,10 +110,10 @@ class hepa {
     }
 	/*
 	* Description: Calculate file size
-	* Usage: $hepa->ccflsz($size);
-	* Example:  $hepa->ccflsz("1874080");
+	* Usage: $hepa->calculateFileSize($size);
+	* Example:  $hepa->calculateFileSize("1874080");
 	*/
-	public function ccflsz($size){
+	public function calculateFileSize($size){
         if ($size < 1024){ return $size . ' B'; }else{
 			$size = $size / 1024;
 			$units = ["KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
@@ -171,10 +124,10 @@ class hepa {
 	/*
 	* Description: Checks the extensions of the entered e-mail addresses (Blocks temporary e-mail addresses)
 	* Initialize: $domains = array('gmail.com','yahoo.com','hotmail.com','outlook.com','msn.com','yandex.com');
-	* Usage: $hepa->ccEmailctn($email, $domains);
-	* Example:  $hepa->ccEmailctn("info@oxcakmak.com", $domains);
+	* Usage: $hepa->checkEmailExtension($email, $domains);
+	* Example:  $hepa->checkEmailExtension("info@oxcakmak.com", $domains);
 	*/
-    public function ccEmailctn($email, $domains){
+    public function checkEmailExtension($email, $domains){
 		foreach ($domains as $domain) { 
 			$pos = @strpos($email, $domain, strlen($email) - strlen($domain));
 			if ($pos === false){ continue; } 
@@ -184,10 +137,10 @@ class hepa {
 	}
 	/*
 	* Description: Get client IP Addresss
-	* Usage: $hepa->getClientIpaddr();
-	* Example: $hepa->getClientIpaddr();
+	* Usage: $hepa->getClientIpAddress();
+	* Example: $hepa->getClientIpAddress();
 	*/
-	public function getClientIpaddr(){
+	public function getClientIpAddress(){
 		if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
 			$_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
 			$_SERVER['HTTP_CLIENT_IP'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
@@ -202,10 +155,10 @@ class hepa {
     }
 	/*
 	* Description: Random String Generator
-	* Usage: $hepa->gntcts(minLength[Number], maxLength[Number], useLower[true/false], useUpper[true/false], useNumbers[true/false], useSpecial[true/false]);
-	* Example: $hepa->gntcts(0, 12, true, false, true, false);
+	* Usage: $hepa->generateRandomStringWayOne(minLength[Number], maxLength[Number], useLower[true/false], useUpper[true/false], useNumbers[true/false], useSpecial[true/false]);
+	* Example: $hepa->generateRandomStringWayOne(0, 12, true, false, true, false);
 	*/
-	public function gntcts($minLength = 20, $maxLength = 20, $useLower = true, $useUpper = true, $useNumbers = true, $useSpecial = false) {
+	public function generateRandomStringWayOne($minLength = 20, $maxLength = 20, $useLower = true, $useUpper = true, $useNumbers = true, $useSpecial = false) {
 		$charset = '';
 		if($useLower) { $charset .= "abcdefghijklmnopqrstuvwxyz"; }
 		if($useUpper){ $charset .= "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; }
@@ -218,10 +171,10 @@ class hepa {
 	}
 	/*
 	* Description: Random String Generator
-	* Usage: $hepa->gntrds(length);
-	* Example: $hepa->gntrds(12);
+	* Usage: $hepa->generateRandomStringWayTwo(length);
+	* Example: $hepa->generateRandomStringWayTwo(12);
 	*/
-	function gntrds($length) {
+	function generateRandomStringWayTwo($length) {
 		$key = '';
 		$keys = array_merge(range(0, 9), range('a', 'z'), range('A', 'Z'));
 		for ($i = 0; $i < $length; $i++) {
@@ -231,10 +184,10 @@ class hepa {
 	}
 	/*
 	* Description: Slugify string
-	* Usage: $hepa->slugs(string);
-	* Example: $hepa->slugs("Lorem Ipsum State");
+	* Usage: $hepa->slugify(string);
+	* Example: $hepa->slugify("Lorem Ipsum State");
 	*/
-	public function slugs($string){
+	public function slugify($string){
 		$preg = array('ş','Ş','ı','I','İ','ğ','Ğ','ü','Ü','ö','Ö','Ç','ç','(',')','/',':',',', '+', '#', '.', '_');
 		$match = array('s','s','i','i','i','g','g','u','u','o','o','c','c','','','-','-','', '', '', '', '');
 		$perma = strtolower(str_replace($preg, $match, $string));
@@ -245,22 +198,22 @@ class hepa {
 	}
 	/*
 	* Description: Hash MD5 Sha1 MD5 Any string custom
-	* Usage: $hepa->hsct(string);
-	* Example: $hepa->hsct("1234");
+	* Usage: $hepa->hashStringMd5(string);
+	* Example: $hepa->hashStringMd5("1234");
 	*/
-	public function hsct($string){ return hash("md5", hash("sha256", hash("sha1", hash("crc32", $string)))); }
+	public function hashStringMd5($string){ return hash("md5", hash("sha256", hash("sha1", hash("crc32", $string)))); }
 	/*
 	* Description: Rewrite content
 	* Usage: $hepa->rwc(string);
 	* Example: $hepa->rwc("1234");
 	*/
-	public function rwc($string){ echo $string; }
+	public function write($string){ echo $string; }
 	/*
 	* Description: Hash value
-	* Using: $hepa->hval("admin");
+	* Using: $hepa->hashString("admin");
 	* Output: 3095ee219dea85f67c1e3a87898c1d5f7b712d20
 	*/
-	public function hval($string){
+	public function hashString($string){
 		$string = hash("md2", $string);
 		$string = hash("md4", $string);
 		$string = hash("md5", $string);
@@ -295,86 +248,60 @@ class hepa {
 	}
 	/*
 	* Description: Latest Date
-	* Using: $hepa->ld();
+	* Using: $hepa->latestDate();
 	* Output: 12.02.2020
 	*/
-	public function ld(){ return date("d.m.Y"); }
+	public function latestDate(){ return date("d.m.Y"); }
 	/*
 	* Description: Latest Date Time
-	* Using: $hepa->ldtm();
+	* Using: $hepa->latestDateTime();
 	* Output: 12.02.2020-13:50
 	*/
-	public function ldtm(){ return date("d.m.Y-H:i"); }
+	public function latestDateTime(){ return date("d.m.Y-H:i"); }
+	/*
+	* Description: Latest Time
+	* Using: $hepa->latestTime();
+	* Output: 13:50:20
+	*/
+	public function latestTime(){ return date("H:i:s"); }
 	/*
     * Description: Equal
-    * Using: $hepa->eq("pass", "pass");
+    * Using: $hepa->equalThen("pass", "pass");
     * Output: true_password
     */
-	public function eq($varOne, $varTwo){
-		if($varOne==$varTwo){ return true; }else{ return false; }
+	public function equalThen($a, $b){
+		($a==$b? true : false);
 	}
 	/*
     * Description: Not Equal
-    * Using: $hepa->neq("pass", "pass123");
+    * Using: $hepa->notEqualThen("pass", "pass123");
     * Output: false_password
     */
-	public function neq($varOne, $varTwo){
-		if($varOne!=$varTwo){ return true; }else{ return false; }
-	}
-	/*
-    * Description: Equal Rewrite Content
-    * Using: $hepa->eqrwc("pass", "pass", "true_password", "false_password");
-    * Output: true_password
-    */
-	public function eqrwc($varOne, $varTwo, $eqTrue, $eqFalse){
-		if($varOne==$varTwo){ $this->rwc($eqTrue); }else{ if($eqFalse){ $this->rwc($eqFalse); } }
-	}
-	/*
-    * Description: Not Equal Rewrite Content
-    * Using: $hepa->neqrwc("pass", "pass123", "false_password", "true_password");
-    * Output: false_password
-    */
-	public function neqrwc($varOne, $varTwo, $eqFalse, $eqTrue){
-		if($varOne!=$varTwo){ $this->rwc($eqFalse); }else{ if($eqTrue){ $this->rwc($eqTrue); } }
+	public function notEqualThen($a, $b){
+		($a!=$b? true : false);
 	}
 	/*
     * Description: Big Value
-    * Using: $hepa->bigval("1", "2");
+    * Using: $hepa->biggerThen("1", "2");
     * Output: true_password
     */
-	public function bigval($varOne, $varTwo){
-		if($varOne>$varTwo){ return true; }else{ return false; }
+	public function biggerThen($a, $b){
+		($a>$b? true : false);
 	}
 	/*
     * Description: Small Value
-    * Using: $hepa->smaval("1", "2", "false_password", "true_password");
+    * Using: $hepa->smallerThen("1", "2", "false_password", "true_password");
     * Output: false_password
     */
-	public function smaval($varOne, $varTwo){
-		if($varOne<$varTwo){ return true; }else{ return false; }
-	}
-	/*
-    * Description: Big Value Rewrite Content
-    * Using: $hepa->eqrwc("pass", "pass", "true_password", "false_password");
-    * Output: true_password
-    */
-	public function bigvalrwc($varOne, $varTwo, $eqTrue, $eqFalse){
-		if($varOne>$varTwo){ $this->rwc($eqTrue); }else{ if($eqFalse){ $this->rwc($eqTrue); } }
-	}
-	/*
-    * Description: Small Value Rewrite Content
-    * Using: $hepa->smavalrwc("pass", "pass123", "false_password", "true_password");
-    * Output: false_password
-    */
-	public function smavalrwc($varOne, $varTwo, $eqFalse, $eqTrue){
-		if($varOne<$varTwo){ $this->rwc($eqFalse); }else{ if($eqTrue){ $this->rwc($eqTrue); } }
+	public function smallerThen($a, $b){
+		($a<$b? true : false);
 	}
 	/*
     * Description: Hash Custom String Id
-    * Using: $hepa->hctsid("pass");
+    * Using: $hepa->hashCustomId("pass");
     * Output: 1005748453476574
     */
-	function hctsid($str) {
+	function hashCustomId($str) {
 		$stepTwo = hexdec(hash("crc32", $str));
 		$stepThree = hexdec(hash("crc32b", $str));
 		$stepFour = hexdec(hash("adler32", $str));
@@ -389,10 +316,10 @@ class hepa {
 	}
 	/*
     * Description: Custom Json String
-    * Using: $hepa->hctsid("pass");
+    * Using: $hepa->customJson("pass");
     * Output: {"title":"Test","content":"Test message!", "type":"error"}
     */
-	function ctJsons($title, $content, $type, $location = NULL, $interval = NULL){
+	function customJson($title, $content, $type, $location = NULL, $interval = NULL){
 		header("Content-Type: application/json", true);
 		$json['title'] = $title;
 		$json['content'] = $content;
